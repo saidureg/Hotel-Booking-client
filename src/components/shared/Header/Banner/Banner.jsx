@@ -42,7 +42,7 @@ const Banner = () => {
             On Pre
           </h4>
           <h1 className="text-xl md:text-4xl lg:text-7xl font-bold mb-2">
-            Hotel Booking
+            Rooms Booking
           </h1>
           <p className="border-[3px] w-1/3 mx-auto my-2"></p>
           <div className="flex justify-center ">
