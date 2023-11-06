@@ -1,18 +1,59 @@
 import { useLoaderData } from "react-router-dom";
 import RoomCard from "./RoomCard";
+import { useState } from "react";
 
 const Rooms = () => {
   const rooms = useLoaderData();
-  console.log(rooms);
+  const [sortRooms, setSortRooms] = useState(rooms);
+  const [sortPrice, setSortPrice] = useState("Default");
+  console.log("Rooms", rooms);
+  const handleSortPrice = (e) => {
+    const roomsCopy = [...rooms];
+    if (e.target.value === "LH") {
+      setSortPrice("LH");
+      roomsCopy.sort((a, b) => {
+        const priceA = parseInt(a.pricePerNight);
+        const priceB = parseInt(b.pricePerNight);
+        return priceA - priceB;
+      });
+    } else if (e.target.value === "HL") {
+      setSortPrice("HL");
+      roomsCopy.sort((a, b) => {
+        const priceA = parseInt(a.pricePerNight);
+        const priceB = parseInt(b.pricePerNight);
+        return priceB - priceA;
+      });
+    }
+    setSortRooms(roomsCopy);
+  };
+  console.log("Rooms data", sortRooms);
+  console.log(sortPrice);
   return (
     <div className="max-w-screen-xl mx-auto">
-      <h3 className="text-3xl font-playfair font-medium my-5">
-        Rooms & Suites
-      </h3>
+      <div className="flex justify-between items-center mt-12">
+        <h3 className="text-3xl font-playfair font-medium ">Rooms & Suites</h3>
+        <div className="">
+          <label className="">Filter By:</label>
+          <select
+            onChange={handleSortPrice}
+            className="select select-warning w-full max-w-xs"
+          >
+            <option defaultValue="selected" value="Default">
+              Default
+            </option>
+            <option value="LH">Low to High</option>
+            <option value="HL">High to Low</option>
+          </select>
+        </div>
+      </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 my-12">
-        {rooms.map((room) => (
-          <RoomCard key={room.id} room={room}></RoomCard>
-        ))}
+        {sortPrice === "Default"
+          ? rooms.map((room, idx) => (
+              <RoomCard key={idx} room={room}></RoomCard>
+            ))
+          : sortRooms.map((room, idx) => (
+              <RoomCard key={idx} room={room}></RoomCard>
+            ))}
       </div>
     </div>
   );

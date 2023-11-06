@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "_id": 1,
     "name": "Deluxe Room",
     "description": "Spacious and elegantly furnished deluxe room, perfect for a relaxing stay. The room features a comfortable king-sized bed, a private balcony with a scenic view, and a modern en-suite bathroom. Enjoy complimentary Wi-Fi, a flat-screen TV, and 24/7 room service. Ideal for both business and leisure travelers.",
     "pricePerNight": 150,
@@ -17,7 +17,7 @@
     ]
   },
   {
-    "id": 2,
+    "_id": 2,
     "name": "Luxury Suite",
     "description": "Indulge in luxury with our spacious and exquisitely designed luxury suite. This suite offers a separate living area, a king-sized bed, a private Jacuzzi, and a panoramic view of the city skyline. Pamper yourself with complimentary spa access, personalized concierge service, and gourmet in-room dining. Perfect for those seeking a lavish retreat.",
     "pricePerNight": 250,
@@ -34,7 +34,7 @@
     ]
   },
   {
-    "id": 3,
+    "_id": 3,
     "name": "Family Suite",
     "description": "Our family suite is designed with your family's comfort in mind. Enjoy a spacious living area, two separate bedrooms with cozy beds, and a fully equipped kitchenette. The suite is child-friendly and offers complimentary cribs and children's amenities. Relax and unwind together in this home-away-from-home.",
     "pricePerNight": 300,
@@ -48,7 +48,7 @@
     "reviews": []
   },
   {
-    "id": 4,
+    "_id": 4,
     "name": "Executive Room",
     "description": "Experience unparalleled comfort in our executive room. This room is perfect for business travelers, featuring a spacious work desk, high-speed internet, and ergonomic chair. Enjoy a restful night's sleep on the plush queen-sized bed and wake up to a complimentary continental breakfast. Stay productive and refreshed during your business trip.",
     "pricePerNight": 180,
@@ -62,7 +62,7 @@
     "reviews": []
   },
   {
-    "id": 5,
+    "_id": 5,
     "name": "Honeymoon Suite",
     "description": "Celebrate your love in our romantic honeymoon suite. This suite offers a cozy fireplace, a private balcony with ocean views, and a luxurious four-poster bed. Enjoy a candlelit dinner for two, a relaxing couples massage, and personalized butler service. Create unforgettable memories in this intimate and enchanting suite.",
     "pricePerNight": 280,
@@ -79,7 +79,7 @@
     ]
   },
   {
-    "id": 6,
+    "_id": 6,
     "name": "Penthouse Suite",
     "description": "Live the high life in our luxurious penthouse suite. This top-floor suite offers breathtaking panoramic views of the city, a private rooftop terrace, and a fully stocked bar. Indulge in a gourmet in-room dining experience prepared by our executive chef. Enjoy exclusive access to our spa, fitness center, and VIP concierge services.",
     "pricePerNight": 500,
