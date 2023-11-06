@@ -9,7 +9,7 @@ const Rooms = () => {
       <h3 className="text-3xl font-playfair font-medium my-5">
         Rooms & Suites
       </h3>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 my-12">
         {rooms.map((room) => (
           <RoomCard key={room.id} room={room}></RoomCard>
         ))}
