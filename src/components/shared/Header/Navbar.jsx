@@ -80,7 +80,6 @@ const Navbar = () => {
             <>
               <div className="dropdown dropdown-end md:mr-5">
                 <div className="flex items-center gap-1">
-                  <p>{user?.displayName}</p>
                   <label tabIndex={0} className="avatar rounded-full">
                     <div className="w-[50px] ">
                       <img
@@ -92,11 +91,11 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="mt-3 z-[1] p-1 divide-y-2 space-y-4 md:p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-48 md:w-52 lg:w-56"
+                  className="mt-3 z-[1] p-1 divide-y-2 space-y-4 md:p-2 shadow menu menu-sm dropdown-content bg-base-100 text-black rounded-box w-48 md:w-52 lg:w-56"
                 >
                   <li>
                     <a className="gap-3 text-sm md:text-base lg:text-lg">
-                      <CgProfile /> Profile
+                      <CgProfile /> {user?.displayName}
                     </a>
                   </li>
                   <li>
