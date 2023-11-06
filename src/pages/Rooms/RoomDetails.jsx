@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import swal from "sweetalert";
+import moment from "moment";
 
 const RoomDetails = () => {
   const { id } = useParams();
@@ -26,6 +27,8 @@ const RoomDetails = () => {
       "success"
     );
   };
+
+  const minDate = moment().format("YYYY-MM-DD");
 
   return (
     <div>
@@ -100,6 +103,7 @@ const RoomDetails = () => {
                 type="date"
                 name="date"
                 placeholder="Date"
+                min={minDate}
                 required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
               />
