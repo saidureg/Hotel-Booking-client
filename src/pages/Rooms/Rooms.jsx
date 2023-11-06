@@ -6,7 +6,6 @@ const Rooms = () => {
   const rooms = useLoaderData();
   const [sortRooms, setSortRooms] = useState(rooms);
   const [sortPrice, setSortPrice] = useState("Default");
-  console.log("Rooms", rooms);
   const handleSortPrice = (e) => {
     const roomsCopy = [...rooms];
     if (e.target.value === "LH") {
@@ -26,8 +25,6 @@ const Rooms = () => {
     }
     setSortRooms(roomsCopy);
   };
-  console.log("Rooms data", sortRooms);
-  console.log(sortPrice);
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="flex justify-between items-center mt-12">
