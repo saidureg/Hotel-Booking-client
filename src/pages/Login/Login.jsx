@@ -6,6 +6,7 @@ import logo from "../../assets/LuxeLair-logo.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 const Login = () => {
   const { signIn, googleLogin } = useContext(AuthContext);
@@ -14,21 +15,27 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    const email = form.get("email");
-    const password = form.get("password");
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
     console.log(email, password);
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return swal("Oops!", "Please Provide a valid email", "error");
     }
     e.currentTarget.reset();
     signIn(email, password)
-      .then((result) => {
-        console.log(result.user);
-        toast("You have successfully logged in");
-
-        // navigate after login
-        navigate(location?.state ? location.state : "/");
+      .then(() => {
+        form.reset();
+        const user = { email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.success) {
+              navigate(location?.state ? location.state : "/");
+              toast("You have successfully logged in");
+            }
+          });
       })
       .catch((error) => {
         console.error(error);
@@ -40,7 +47,8 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     googleLogin(googleProvide)
-      .then(() => {
+      .then((results) => {
+        console.log(results._tokenResponse);
         toast("You have successfully logged in");
         navigate(location?.state ? location.state : "/");
       })
@@ -51,9 +59,9 @@ const Login = () => {
   return (
     <div className="hero min-h-screen">
       <div className="hero-content w-full lg:w-1/2">
-        <div className="card flex-shrink-0 w-full  shadow-2xl bg-neutral text-neutral-content">
+        <div className="card flex-shrink-0 w-full  shadow-2xl bg-neutral">
           <img className="w-[250px] mx-auto mt-5" src={logo} alt="logo" />
-          <h3 className="text-center text-4xl font-semibold mt-16 mb-8">
+          <h3 className="text-center text-white text-4xl font-semibold mt-16 mb-8">
             Login your account
           </h3>
           <form onSubmit={handleLogin} className="card-body">

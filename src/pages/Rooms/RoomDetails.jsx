@@ -1,22 +1,11 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import swal from "sweetalert";
 import moment from "moment";
 
 const RoomDetails = () => {
-  const { id } = useParams();
-  const [rooms, setRooms] = useState([]);
-  useEffect(() => {
-    fetch("/rooms.json")
-      .then((res) => res.json())
-      .then((data) => setRooms(data));
-  }, []);
-  console.log(id);
-  const idInt = parseInt(id);
-  const findRoom = rooms?.find((room) => room._id === idInt);
-  console.log(findRoom);
-  //   const { name, description, thumbnail, pricePerNight } = findRoom;
-  //   console.log(name, description, thumbnail, pricePerNight);
+  const room = useLoaderData();
+  console.log(room);
+  const { name, description, thumbnail, pricePerNight } = room;
 
   const handleBooking = (e) => {
     e.preventDefault();
@@ -32,22 +21,22 @@ const RoomDetails = () => {
 
   return (
     <div>
-      <h3>Room Deatails</h3>
+      <h3>Room Details</h3>
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-5 mb-8">
         <div className="relative flex w-full lg:w-3/4 flex-col rounded-xl bg-white bg-clip-border lg:shadow-md">
           <div className="relative m-0 shrink-0 overflow-hidden rounded-xl p-4 bg-white bg-clip-border">
             <img
-              src={findRoom?.thumbnail}
-              alt={findRoom?.name}
+              src={thumbnail}
+              alt={name}
               className="max-h-[70vh] w-full object-cover rounded-xl"
             />
           </div>
           <div className="p-6">
             <h4 className="mb-2 block text-xl md:text-3xl font-semibold leading-snug tracking-normal text-gray-900 antialiased">
-              {findRoom?.name}
+              {name}
             </h4>
             <p className="mb-8 block text-base font-normal leading-relaxed text-gray-700 antialiased">
-              {findRoom?.description}
+              {description}
             </p>
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 my-4">
@@ -73,7 +62,7 @@ const RoomDetails = () => {
                     Regular
                   </th>
                   <th className="border border-[#dee2e6] p-3 text-gray-700">
-                    ${findRoom?.pricePerNight}
+                    ${pricePerNight}
                   </th>
                 </tr>
               </thead>

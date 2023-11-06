@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 const RoomCard = ({ room }) => {
-  const { _id, name, thumbnail, pricePerNight, rating, reviewCount } = room;
+  const { _id, name, thumbnail, pricePerNight, rating, reviews } = room;
 
   return (
     <Link to={`/roomDetails/${_id}`}>
@@ -20,7 +20,7 @@ const RoomCard = ({ room }) => {
               {rating}/5
             </h4>
             <h6 className="block font-montserrat text-xl font-semibold">
-              {reviewCount} Reviews
+              {reviews?.length} Reviews
             </h6>
           </div>
         </div>
