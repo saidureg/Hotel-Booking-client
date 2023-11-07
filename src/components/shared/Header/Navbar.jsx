@@ -80,7 +80,7 @@ const Navbar = () => {
               : "hover:text-[#ff881e]"
           }
         >
-          Booking
+          My Booking
         </NavLink>
       </li>
     </>

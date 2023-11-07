@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import FeaturedRoomCard from "./FeaturedRoomCard";
+import useRooms from "../../../hooks/useRooms";
 
 const FeaturedRooms = () => {
-  const [rooms, setRooms] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/rooms")
-      .then((response) => response.json())
-      .then((data) => setRooms(data));
-  }, []);
+  const rooms = useRooms();
 
   return (
     <div className="max-w-screen-xl mx-auto mt-12">
