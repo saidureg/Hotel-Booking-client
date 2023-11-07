@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineArrowsAlt,
+  AiOutlineDollar,
+  AiOutlineWifi,
+} from "react-icons/ai";
+import { TbAirConditioning } from "react-icons/tb";
 
-const FeaturedRooms = () => {
-  const [room, setRoom] = useState([]);
-
-  useEffect(() => {
-    fetch("/rooms.json")
-      .then((response) => response.json())
-      .then((data) => setRoom(data));
-  }, []);
-
-  const { name, thumbnail, pricePerNight, rating } = room;
+const FeaturedRoomCard = ({ room }) => {
+  const { _id, name, thumbnail, description, pricePerNight, rating, size } =
+    room;
   return (
-    <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+    <div className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
       <div className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
         <img src={thumbnail} alt={name} />
         <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
@@ -56,24 +56,47 @@ const FeaturedRooms = () => {
           </p>
         </div>
         <p className="block font-sans text-base antialiased font-light leading-relaxed text-gray-700">
-          Enter a freshly updated and thoughtfully furnished peaceful home
-          surrounded by ancient trees, stone walls, and open meadows.
+          {description.length > 100
+            ? description.substring(0, 100) + "..."
+            : description}
         </p>
-        <div className="inline-flex flex-wrap items-center gap-3 mt-8 group">
-          <span>{pricePerNight} per night</span>
+        {/* <div className="inline-flex flex-wrap items-center gap-3 mt-8 group">
+         
+        </div> */}
+        <div className="mt-8 group space-y-4 divide-y-2">
+          <h4 className="flex items-center gap-2 text-gray-400 lg:text-lg font-semibold py-1 uppercase">
+            <AiOutlineDollar className="text-xl lg:text-2xl" /> {pricePerNight}{" "}
+            per night
+          </h4>
+          <h4 className="flex items-center gap-2 text-gray-400 lg:text-lg font-semibold py-1 uppercase">
+            <AiOutlineArrowsAlt className="text-xl lg:text-2xl" /> {size}{" "}
+          </h4>
+          <h4 className="flex items-center gap-2 text-gray-400 lg:text-lg font-semibold py-1 uppercase">
+            <AiOutlineWifi className="text-xl lg:text-2xl" /> Wi-Fi
+          </h4>
+          <h4 className="flex items-center gap-2 text-gray-400 lg:text-lg font-semibold py-1 uppercase">
+            <TbAirConditioning className="text-xl lg:text-2xl" />{" "}
+            Air-Conditioning
+          </h4>
         </div>
       </div>
       <div className="p-6 pt-3">
-        <button
-          className="block w-full select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-          type="button"
-          data-ripple-light="true"
-        >
-          Reserve
-        </button>
+        <Link to={`/roomDetails/${_id}`}>
+          <button
+            className="block w-full select-none rounded-lg bg-pink-500 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+            data-ripple-light="true"
+          >
+            Book Now
+          </button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default FeaturedRooms;
+FeaturedRoomCard.propTypes = {
+  room: PropTypes.object.isRequired,
+};
+
+export default FeaturedRoomCard;

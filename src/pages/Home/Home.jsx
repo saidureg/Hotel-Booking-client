@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import Review from "../../components/Review/Review";
 import Banner from "../../components/shared/Header/Banner/Banner";
 import Newsletter from "./Newsletter";
+import FeaturedRooms from "./FeaturedRooms/FeaturedRooms";
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
         <title>LuxeLair - Amazing Deluxe Hotel</title>
       </Helmet>
       <Banner />
-      <h3 className="font-playfair">Home</h3>
+      <FeaturedRooms />
       <Review />
       <Newsletter />
     </div>

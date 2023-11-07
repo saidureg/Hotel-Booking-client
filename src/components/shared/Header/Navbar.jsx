@@ -25,16 +25,63 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? " hover:text-[#ff881e] text-white"
+              : isActive
+              ? "border-b-4 border-[#ff881e] text-white hover:text-[#ff881e]"
+              : "hover:text-[#ff881e] text-white"
+          }
+        >
+          Home
+        </NavLink>
       </li>
+
       <li>
-        <NavLink to="/rooms">Rooms</NavLink>
+        <NavLink
+          to="/rooms"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? " hover:text-[#ff881e]"
+              : isActive
+              ? "border-b-4 border-[#ff881e] hover:text-[#ff881e]"
+              : "hover:text-[#ff881e]"
+          }
+        >
+          Rooms
+        </NavLink>
       </li>
+
       <li>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink
+          to="/contact"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? " hover:text-[#ff881e]"
+              : isActive
+              ? "border-b-4 border-[#ff881e] text-white hover:text-[#ff881e]"
+              : "hover:text-[#ff881e]"
+          }
+        >
+          Contact
+        </NavLink>
       </li>
+
       <li>
-        <NavLink to="/booking">Booking</NavLink>
+        <NavLink
+          to="/booking"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? " hover:text-[#ff881e]"
+              : isActive
+              ? "border-b-4 border-[#ff881e] text-white hover:text-[#ff881e]"
+              : "hover:text-[#ff881e]"
+          }
+        >
+          Booking
+        </NavLink>
       </li>
     </>
   );
@@ -71,9 +118,7 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal text-lg text-[#E1BE64] px-1">
-            {navLinks}
-          </ul>
+          <ul className="menu menu-horizontal text-lg px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
           {user ? (
