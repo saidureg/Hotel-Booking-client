@@ -3,10 +3,20 @@ import swal from "sweetalert";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
 
 const RoomDetails = () => {
   const room = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const [formName, setFormName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [date, setDate] = useState("");
+  const [text, setText] = useState("");
+  const [bookingData, setBookingData] = useState("");
   const {
+    _id,
     name,
     description,
     thumbnail,
@@ -17,14 +27,54 @@ const RoomDetails = () => {
     specialOffers,
   } = room;
 
-  const handleBooking = (e) => {
+  const handleFormValue = (e) => {
     e.preventDefault();
-    e.target.reset();
-    swal(
-      "Event Booking successfully",
-      "Our team will contact you soon",
-      "success"
-    );
+    const form = e.target;
+    const formName = form.name.value;
+    setFormName(formName);
+    const phone = form.phone.value;
+    setPhone(phone);
+    const date = form.date.value;
+    setDate(date);
+    const text = form.text.value;
+    setText(text);
+    form.reset();
+  };
+
+  const handleBooking = () => {
+    const email = user?.email;
+    if (formName === "" && phone === "" && date === "" && text === "") {
+      return swal("Oops!", "You have to fill all the fields", "error");
+    } else {
+      const data = {
+        name: formName,
+        room_name: name,
+        room_Id: _id,
+        email,
+        thumbnail,
+        phone,
+        date,
+        special_request: text,
+        pricePerNight,
+      };
+      console.log(data);
+      console.log("bookingData", bookingData);
+      axios.post("http://localhost:5000/bookings", data).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          swal(
+            "Booking successfully!",
+            "Thank you for booking the room.",
+            "success"
+          );
+        }
+      });
+
+      setFormName("");
+      setPhone("");
+      setDate("");
+      setText("");
+    }
   };
 
   const minDate = moment().format("YYYY-MM-DD");
@@ -104,7 +154,9 @@ const RoomDetails = () => {
         {/* right side */}
         <div className="w-3/4 mx-auto lg:w-1/4">
           <div className="border border-[#ff881e] p-3 rounded">
-            <h3 className="text-xl mt-2 text-[#212529]">What Our Guests Are Saying</h3>
+            <h3 className="text-xl mt-2 text-[#212529]">
+              What Our Guests Are Saying
+            </h3>
             <table className="border-collapse border border-[#c1a26c] w-full mt-2">
               <thead>
                 <tr>
@@ -125,15 +177,17 @@ const RoomDetails = () => {
             <p className="text-sm text-gray-700">
               Please leave your details and let us take care of the rest
             </p>
-            <form onSubmit={handleBooking}>
+            <form onSubmit={handleFormValue}>
               <input
                 type="text"
                 placeholder="Your Name"
+                name="name"
                 required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
               />
               <input
                 type="number"
+                name="phone"
                 placeholder="Mobile Number"
                 required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
@@ -142,6 +196,8 @@ const RoomDetails = () => {
                 type="date"
                 name="date"
                 placeholder="Date"
+                value={bookingData}
+                onChange={(e) => setBookingData(e.target.value)}
                 min={minDate}
                 required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
@@ -151,11 +207,43 @@ const RoomDetails = () => {
                 placeholder="Any special request?"
                 cols="10"
                 rows="5"
+                required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
               ></textarea>
-              <button className="btn btn-outline text-white flex w-full text-lg my-4">
-                Booking
+              {/* <button className="btn btn-outline text-white flex w-full text-lg my-4">
+                Book Now
+              </button> */}
+              {/* Open the modal using document.getElementById('ID').showModal() method */}
+              <button
+                className="btn btn-outline text-white flex w-full text-lg my-4"
+                onClick={() =>
+                  document.getElementById("my_modal_5").showModal()
+                }
+              >
+                Book Now
               </button>
+              <dialog
+                id="my_modal_5"
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <div className="modal-box">
+                  <h3 className="font-bold text-lg">Hello!</h3>
+                  <p className="py-4">
+                    Press ESC key or click the button below to close
+                  </p>
+                  <div className="modal-action">
+                    <form method="dialog">
+                      {/* if there is a button in form, it will close the modal */}
+                      <button
+                        onClick={handleBooking}
+                        className="btn btn-primary"
+                      >
+                        Booking
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </dialog>
             </form>
           </div>
         </div>
