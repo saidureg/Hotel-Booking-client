@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
 import logo from "../../assets/LuxeLair-logo.png";
+import axios from "axios";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const Register = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(name, phone, email, password);
-    if (phone.length !== 10) {
+    if (phone.length !== 11) {
       return swal("Oops!", "Invalid phone number!", "error");
     } else if (password.length < 6) {
       return swal(
@@ -43,8 +44,18 @@ const Register = () => {
           displayName: name,
         })
           .then(() => {
-            toast("Account created successfully");
-            navigate("/");
+            const user = { email };
+            axios
+              .post("http://localhost:5000/jwt", user, {
+                withCredentials: true,
+              })
+              .then((res) => {
+                console.log(res.data);
+                if (res.data.success) {
+                  navigate("/");
+                  toast("Account created successfully");
+                }
+              });
           })
           .catch((error) => {
             return swal("Oops!", error.message, "error");
@@ -59,7 +70,7 @@ const Register = () => {
       <div className="hero-content w-full lg:w-1/2">
         <div className="card flex-shrink-0 w-full  shadow-2xl bg-neutral">
           <img className="w-[250px] mx-auto mt-5" src={logo} alt="logo" />
-          <h3 className="text-center text-4xl font-semibold mt-16 mb-8">
+          <h3 className="text-center text-white text-4xl font-semibold mt-16 mb-8">
             Register your account
           </h3>
           <form onSubmit={handleRegister} className="card-body">
