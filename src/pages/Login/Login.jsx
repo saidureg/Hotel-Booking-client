@@ -48,9 +48,17 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     googleLogin(googleProvide)
       .then((results) => {
-        console.log(results._tokenResponse);
-        toast("You have successfully logged in");
-        navigate(location?.state ? location.state : "/");
+        const email = results.user.email;
+        const user = { email };
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.success) {
+              navigate(location?.state ? location.state : "/");
+              toast("You have successfully logged in");
+            }
+          });
       })
       .catch((error) => {
         return swal("Oops!", error.message, "error");
