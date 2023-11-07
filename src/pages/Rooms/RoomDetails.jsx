@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import swal from "sweetalert";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const RoomDetails = () => {
   const room = useLoaderData();
@@ -21,7 +22,9 @@ const RoomDetails = () => {
 
   return (
     <div>
-      <h3>Room Details</h3>
+      <Helmet>
+        <title>{name} - LuxeLair</title>
+      </Helmet>
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-5 mb-8">
         <div className="relative flex w-full lg:w-3/4 flex-col rounded-xl bg-white bg-clip-border lg:shadow-md">
           <div className="relative m-0 shrink-0 overflow-hidden rounded-xl p-4 bg-white bg-clip-border">

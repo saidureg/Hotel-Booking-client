@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import RoomCard from "./RoomCard";
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Rooms = () => {
   const rooms = useLoaderData();
@@ -27,6 +28,9 @@ const Rooms = () => {
   };
   return (
     <div className="max-w-screen-xl mx-auto">
+      <Helmet>
+        <title>Rooms - LuxeLair</title>
+      </Helmet>
       <div className="flex justify-between items-center mt-12">
         <h3 className="text-3xl font-playfair font-medium ">Rooms & Suites</h3>
         <div className="">
