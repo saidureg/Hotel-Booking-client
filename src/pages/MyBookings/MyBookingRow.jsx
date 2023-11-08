@@ -1,17 +1,10 @@
 import moment from "moment";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { GrUpdate } from "react-icons/gr";
 import { Link } from "react-router-dom";
-const MyBookingRow = ({
-  booking,
-  handleDelete,
-  possible,
-  SetPossible,
-  today,
-  setToday,
-}) => {
+const MyBookingRow = ({ booking, handleDelete }) => {
   const {
     _id,
     thumbnail,
@@ -24,10 +17,11 @@ const MyBookingRow = ({
   } = booking;
 
   const time = moment(date, "YYYYMMDD").fromNow();
-  console.log(time);
 
   //compare booking date
 
+  const [possible, SetPossible] = useState(false);
+  const [passTime, setPassTime] = useState(false);
   useEffect(() => {
     if (
       (time.startsWith("in") && time.endsWith("day")) ||
@@ -35,18 +29,11 @@ const MyBookingRow = ({
     ) {
       SetPossible(true);
     }
-    if (time.startsWith("in")) {
-      setToday(false);
-    }
 
-    // if (time.startsWith("a")) {
-    //   setToday(true);
-    // } else {
-    //   setToday(false);
-    // }
-  }, [time, SetPossible, setToday]);
-  console.log("possible", possible);
-  console.log("today", today);
+    if (time.startsWith("in")) {
+      setPassTime(true);
+    }
+  }, [time]);
 
   return (
     <tr>
@@ -73,22 +60,36 @@ const MyBookingRow = ({
         </span>
       </td>
       <td>{date}</td>
-      <th>
-        <div className="flex flex-col gap-5">
+
+      {passTime ? (
+        <th className="flex flex-col gap-5">
           <Link to={`/updatedRoom/${_id}`}>
             <button className="px-3 py-2 text-green-600">
               <GrUpdate className="text-xl" />
             </button>
           </Link>
 
-          <button
-            onClick={() => handleDelete(_id, date)}
-            className=" px-3 py-2 text-red-600"
-          >
-            <AiFillDelete className="text-2xl" />
-          </button>
-        </div>
-      </th>
+          {possible ? (
+            <button
+              onClick={() => handleDelete(_id)}
+              className=" px-3 py-2 text-red-600"
+            >
+              <AiFillDelete className="text-2xl" />
+            </button>
+          ) : (
+            <button
+              disabled
+              className="w-24 bg-red-500 py-1 px-2 rounded text-white"
+            >
+              Not Allowed
+            </button>
+          )}
+        </th>
+      ) : (
+        <h2 className="w-24 text-center font-bold text-lg pt-6">
+          Enjoy Your Trip
+        </h2>
+      )}
     </tr>
   );
 };
@@ -96,6 +97,8 @@ const MyBookingRow = ({
 MyBookingRow.propTypes = {
   booking: PropTypes.object.isRequired,
   handleDelete: PropTypes.func,
+  possible: PropTypes.bool,
+  today: PropTypes.bool,
 };
 
 export default MyBookingRow;
