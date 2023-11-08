@@ -11,7 +11,12 @@ const FeaturedRoomCard = ({ room }) => {
   const { _id, name, thumbnail, description, pricePerNight, rating, size } =
     room;
   return (
-    <div className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+    <div
+      data-aos="fade-up"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
+      className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg"
+    >
       <div className="relative mx-4 mt-4 overflow-hidden text-white shadow-lg rounded-xl bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
         <img src={thumbnail} alt={name} />
         <div className="absolute inset-0 w-full h-full to-bg-black-10 bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
