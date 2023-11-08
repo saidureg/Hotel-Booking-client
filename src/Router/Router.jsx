@@ -9,6 +9,7 @@ import Register from "../pages/Register/Register";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import PrivateRouter from "./PrivateRouter";
 import Contact from "../pages/Contact/Contact";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const Router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const Router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+      {
+        path: "/about",
+        element: <AboutUs />,
       },
     ],
   },

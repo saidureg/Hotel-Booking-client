@@ -38,6 +38,20 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? " hover:text-[#ff881e] text-white"
+              : isActive
+              ? "border-b-4 border-[#ff881e] text-white hover:text-[#ff881e]"
+              : "hover:text-[#ff881e] text-white"
+          }
+        >
+          About Us
+        </NavLink>
+      </li>
 
       <li>
         <NavLink
