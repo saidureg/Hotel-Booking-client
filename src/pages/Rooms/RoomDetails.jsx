@@ -118,7 +118,7 @@ const RoomDetails = () => {
               What Our Guests Are Saying
             </h3>
             <div>
-              <ReviewForRoom />
+              <ReviewForRoom id={_id} />
             </div>
           </div>
           <div className="flex items-center justify-between mt-12 mx-4">

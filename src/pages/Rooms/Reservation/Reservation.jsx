@@ -6,11 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
-// import useRooms from "../../../hooks/useRooms";
-
 const Reservation = () => {
-  //   const rooms = useRooms();
-  //   console.log(rooms);
   const room = useLoaderData();
   const { user } = useContext(AuthContext);
   const [formName, setFormName] = useState("");
@@ -46,10 +42,6 @@ const Reservation = () => {
     console.log(findData);
     setAlreadyBooked(findData);
   }, [bookedRoom, bookingDate]);
-
-  // if (bookedDate === minDate) {
-  //   console.log("unavailable");
-  // }
 
   const handleFormValue = (e) => {
     e.preventDefault();

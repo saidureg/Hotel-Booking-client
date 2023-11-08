@@ -12,6 +12,7 @@ import Contact from "../pages/Contact/Contact";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Reservation from "../pages/Rooms/Reservation/Reservation";
 import ReviewForm from "../components/Review/ReviewForm";
+import UpdatedRoom from "../pages/UpdatedRoom";
 
 const Router = createBrowserRouter([
   {
@@ -35,14 +36,32 @@ const Router = createBrowserRouter([
           fetch(`http://localhost:5000/rooms/${params.id}`),
       },
       {
+        path: "/updatedRoom/:id",
+        element: (
+          <PrivateRouter>
+            <UpdatedRoom />
+          </PrivateRouter>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/bookings/${params.id}`),
+      },
+      {
         path: "/reservation/:id",
-        element: <Reservation />,
+        element: (
+          <PrivateRouter>
+            <Reservation />
+          </PrivateRouter>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/rooms/${params.id}`),
       },
       {
         path: "/review/:id",
-        element: <ReviewForm />,
+        element: (
+          <PrivateRouter>
+            <ReviewForm />
+          </PrivateRouter>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5000/rooms/${params.id}`),
       },
