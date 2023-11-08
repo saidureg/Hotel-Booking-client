@@ -11,6 +11,7 @@ import PrivateRouter from "./PrivateRouter";
 import Contact from "../pages/Contact/Contact";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import Reservation from "../pages/Rooms/Reservation/Reservation";
+import ReviewForm from "../components/Review/ReviewForm";
 
 const Router = createBrowserRouter([
   {
@@ -36,6 +37,12 @@ const Router = createBrowserRouter([
       {
         path: "/reservation/:id",
         element: <Reservation />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/rooms/${params.id}`),
+      },
+      {
+        path: "/review/:id",
+        element: <ReviewForm />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/rooms/${params.id}`),
       },

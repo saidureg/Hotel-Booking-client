@@ -106,9 +106,11 @@ const RoomDetails = () => {
                 Book Now
               </button>
             </Link>
-            <button className="btn bg-[#deaa86] text-white hover:text-[#ff881e]">
-              Leave a Review
-            </button>
+            <Link to={`/review/${_id}`}>
+              <button className="btn bg-[#deaa86] text-white hover:text-[#ff881e]">
+                Leave a Review
+              </button>
+            </Link>
           </div>
         </div>
       </div>
