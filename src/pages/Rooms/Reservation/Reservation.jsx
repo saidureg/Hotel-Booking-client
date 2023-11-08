@@ -2,8 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import swal from "sweetalert";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
-import { IoCheckmarkCircleSharp } from "react-icons/io5";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
@@ -13,24 +12,45 @@ const Reservation = () => {
   //   const rooms = useRooms();
   //   console.log(rooms);
   const room = useLoaderData();
-  console.log(room);
   const { user } = useContext(AuthContext);
   const [formName, setFormName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [text, setText] = useState("");
-  const [bookingData, setBookingData] = useState("");
+  const [bookingDate, setBookingDate] = useState("");
+  const [bookedRoom, setBookedRoom] = useState([]);
+  const [alreadyBooked, setAlreadyBooked] = useState();
   const {
     _id,
     name,
     description,
     thumbnail,
     pricePerNight,
-    features,
-    facilities,
     size,
     specialOffers,
   } = room;
+  const minDate = moment().format("YYYY-MM-DD");
+
+  const url = `http://localhost:5000/booked?room_id=${_id}`;
+  // const url = `/bookings?email=${user?.email}`;
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setBookedRoom(data));
+  }, [url]);
+
+  //compare date
+
+  useEffect(() => {
+    const findData = bookedRoom?.find((data) => data.date === bookingDate);
+    console.log(findData);
+    setAlreadyBooked(findData);
+  }, [bookedRoom, bookingDate]);
+
+  // if (bookedDate === minDate) {
+  //   console.log("unavailable");
+  // }
 
   const handleFormValue = (e) => {
     e.preventDefault();
@@ -54,7 +74,7 @@ const Reservation = () => {
       const data = {
         name: formName,
         room_name: name,
-        room_Id: _id,
+        room_id: _id,
         email,
         thumbnail,
         phone,
@@ -62,8 +82,6 @@ const Reservation = () => {
         special_request: text,
         pricePerNight,
       };
-      console.log(data);
-      console.log("bookingData", bookingData);
       axios.post("http://localhost:5000/bookings", data).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
@@ -81,8 +99,6 @@ const Reservation = () => {
       setText("");
     }
   };
-
-  const minDate = moment().format("YYYY-MM-DD");
 
   return (
     <div className="my-10">
@@ -122,37 +138,15 @@ const Reservation = () => {
             <p className="my-8 block text-base font-normal leading-relaxed text-gray-500 antialiased">
               {description}
             </p>
-            <div className="flex flex-col md:flex-row justify-between gap-10">
-              <div className=" w-1/2">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-700 my-4 py-5 border-b-2 border-[#ff881e]">
-                  Room Feature:
-                </h3>
-                <ul className="text-gray-700">
-                  {features?.map((moreServices) => (
-                    <>
-                      <li className="flex items-center gap-2 text-xl ml-8 mb-2">
-                        <IoCheckmarkCircleSharp className="text-red-500" />
-                        {moreServices}
-                      </li>
-                    </>
-                  ))}
-                </ul>
-              </div>
-              <div className=" w-1/2">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-700 my-4 py-5 border-b-2 border-[#ff881e]">
-                  Complementary Benefits:
-                </h3>
-                <ul className="text-gray-700">
-                  {facilities?.map((moreServices) => (
-                    <>
-                      <li className="flex items-center gap-2 text-xl ml-8 mb-2">
-                        <IoCheckmarkCircleSharp className="text-red-500" />
-                        {moreServices}{" "}
-                      </li>
-                    </>
-                  ))}
-                </ul>
-              </div>
+            <div className="">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-700 my-4 py-5">
+                Availability:{" "}
+                {alreadyBooked ? (
+                  <span className="text-[#ff881e]">Unavailable</span>
+                ) : (
+                  <span className="text-[#ff881e]">Available for booking</span>
+                )}
+              </h3>
             </div>
           </div>
         </div>
@@ -189,8 +183,8 @@ const Reservation = () => {
                 type="date"
                 name="date"
                 placeholder="Date"
-                value={bookingData}
-                onChange={(e) => setBookingData(e.target.value)}
+                value={bookingDate}
+                onChange={(e) => setBookingDate(e.target.value)}
                 min={minDate}
                 required
                 className="py-3 px-4 w-full bg-[#e9ecef] bg-opacity-90 rounded text-lg mb-2"
@@ -204,7 +198,11 @@ const Reservation = () => {
               ></textarea>
 
               <button
-                className="btn btn-outline text-white flex w-full text-lg my-4"
+                className={`${
+                  alreadyBooked
+                    ? "btn btn-outline w-full text-lg my-4 cursor-not-allowed btn-disabled"
+                    : "btn btn-outline text-white flex w-full text-lg my-4"
+                }`}
                 onClick={() =>
                   document.getElementById("my_modal_5").showModal()
                 }
@@ -244,7 +242,7 @@ const Reservation = () => {
                     </div>
 
                     <p className="py-4 text-[#8b8b8b] text-lg md:text-2xl font-montserrat">
-                      Booking Data : <span>{bookingData}</span>
+                      Booking Data : <span>{bookingDate}</span>
                     </p>
                   </div>
                   <div className="modal-action">
