@@ -10,6 +10,7 @@ import MyBookings from "../pages/MyBookings/MyBookings";
 import PrivateRouter from "./PrivateRouter";
 import Contact from "../pages/Contact/Contact";
 import AboutUs from "../pages/AboutUs/AboutUs";
+import Reservation from "../pages/Rooms/Reservation/Reservation";
 
 const Router = createBrowserRouter([
   {
@@ -29,6 +30,12 @@ const Router = createBrowserRouter([
       {
         path: "/roomDetails/:id",
         element: <RoomDetails />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/rooms/${params.id}`),
+      },
+      {
+        path: "/reservation/:id",
+        element: <Reservation />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/rooms/${params.id}`),
       },
