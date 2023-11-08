@@ -2,9 +2,25 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import ReviewForRoom from "../../components/Review/ReviewForRoom";
+// import useBookings from "../../hooks/useBookings";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const RoomDetails = () => {
+  const { user } = useContext(AuthContext);
   const room = useLoaderData();
+  const [bookings, setBookings] = useState();
+  const [userBooked, setUserBooked] = useState([]);
+
+  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserBooked(data);
+      });
+  }, [url]);
 
   const {
     _id,
@@ -17,6 +33,11 @@ const RoomDetails = () => {
     size,
     specialOffers,
   } = room;
+
+  useEffect(() => {
+    const findUserBooked = userBooked?.find((id) => id.room_id === _id);
+    setBookings(findUserBooked);
+  }, [userBooked, _id]);
 
   return (
     <div className="my-10">
@@ -106,11 +127,29 @@ const RoomDetails = () => {
                 Book Now
               </button>
             </Link>
-            <Link to={`/review/${_id}`}>
-              <button className="btn bg-[#deaa86] text-white hover:text-[#ff881e]">
+            {bookings ? (
+              <Link to={`/review/${_id}`}>
+                <button
+                  className={`${
+                    bookings
+                      ? "btn bg-[#deaa86] text-white hover:text-[#ff881e]"
+                      : "btn btn-disabled"
+                  }`}
+                >
+                  Leave a Review
+                </button>
+              </Link>
+            ) : (
+              <button
+                className={`${
+                  bookings
+                    ? "btn bg-[#deaa86] text-white hover:text-[#ff881e]"
+                    : "btn btn-disabled"
+                }`}
+              >
                 Leave a Review
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>

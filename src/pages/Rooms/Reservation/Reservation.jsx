@@ -32,7 +32,6 @@ const Reservation = () => {
   const minDate = moment().format("YYYY-MM-DD");
 
   const url = `http://localhost:5000/booked?room_id=${_id}`;
-  // const url = `/bookings?email=${user?.email}`;
 
   useEffect(() => {
     fetch(url)

@@ -24,10 +24,8 @@ const ReviewForm = () => {
       time,
     };
 
-    console.log(review);
     axios.post("http://localhost:5000/reviews", review).then((res) => {
       e.target.reset();
-      console.log(res.data);
       if (res.data.insertedId) {
         swal(
           "Booking successfully!",
