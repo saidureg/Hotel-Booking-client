@@ -26,7 +26,6 @@ const MyBookings = () => {
           </tr>
         </thead>
         <tbody>
-          {/* row 1 */}
           {bookings.map((booking, idx) => (
             <MyBookingRow key={idx} booking={booking}></MyBookingRow>
           ))}

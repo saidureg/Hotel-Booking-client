@@ -8,6 +8,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import MyBookings from "../pages/MyBookings/MyBookings";
 import PrivateRouter from "./PrivateRouter";
+import Contact from "../pages/Contact/Contact";
 
 const Router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const Router = createBrowserRouter([
             <MyBookings />
           </PrivateRouter>
         ),
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },
