@@ -24,16 +24,18 @@ const ReviewForm = () => {
       time,
     };
 
-    axios.post("http://localhost:5000/reviews", review).then((res) => {
-      e.target.reset();
-      if (res.data.insertedId) {
-        swal(
-          "Booking successfully!",
-          "Thank you for booking the room.",
-          "success"
-        );
-      }
-    });
+    axios
+      .post("https://luxelair-hotel-server.vercel.app/reviews", review)
+      .then((res) => {
+        e.target.reset();
+        if (res.data.insertedId) {
+          swal(
+            "Booking successfully!",
+            "Thank you for booking the room.",
+            "success"
+          );
+        }
+      });
   };
 
   return (

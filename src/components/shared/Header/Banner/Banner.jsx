@@ -19,7 +19,7 @@ const Banner = () => {
 
   return (
     <div className="banner-container">
-      {images.map((image, index) => (
+      {images?.map((image, index) => (
         <div
           key={index}
           className={`banner-image ${

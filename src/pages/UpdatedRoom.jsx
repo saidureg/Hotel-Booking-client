@@ -44,7 +44,10 @@ const UpdatedRoom = () => {
     };
     console.log(updatedData);
     axios
-      .patch(`http://localhost:5000/bookings/${_id}`, updatedData)
+      .patch(
+        `https://luxelair-hotel-server.vercel.app/bookings/${_id}`,
+        updatedData
+      )
       .then((res) => {
         console.log(res.data);
         if (res.data.modifiedCount) {

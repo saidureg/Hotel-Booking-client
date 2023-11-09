@@ -9,10 +9,10 @@ const MyBookings = () => {
   const [possible, SetPossible] = useState(false);
   const [today, setToday] = useState(false);
   const { user } = useContext(AuthContext);
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const url = `https://luxelair-hotel-server.vercel.app/bookings?email=${user?.email}`;
 
   useEffect(() => {
-    fetch(url)
+    fetch(url, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setBookings(data));
   }, [url]);
@@ -26,7 +26,7 @@ const MyBookings = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/bookings/${_id}`, {
+        fetch(`https://luxelair-hotel-server.vercel.app/bookings/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -63,7 +63,7 @@ const MyBookings = () => {
           </tr>
         </thead>
         <tbody>
-          {bookings.map((booking, idx) => (
+          {bookings?.map((booking, idx) => (
             <MyBookingRow
               key={idx}
               booking={booking}

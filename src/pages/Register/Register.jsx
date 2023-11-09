@@ -46,7 +46,7 @@ const Register = () => {
           .then(() => {
             const user = { email };
             axios
-              .post("http://localhost:5000/jwt", user, {
+              .post("https://luxelair-hotel-server.vercel.app/jwt", user, {
                 withCredentials: true,
               })
               .then((res) => {

@@ -58,7 +58,7 @@ const Review = () => {
             modules={[Autoplay, EffectCoverflow, Pagination, Navigation]}
             className="swiper_container"
           >
-            {reviews.map((review, idx) => (
+            {reviews?.map((review, idx) => (
               <SwiperSlide key={idx}>
                 {" "}
                 <ReviewCard key={idx} review={review}></ReviewCard>{" "}
@@ -104,7 +104,7 @@ const Review = () => {
             modules={[Autoplay, EffectCoverflow, Pagination, Navigation]}
             className="swiper_container"
           >
-            {reviews.map((review, idx) => (
+            {reviews?.map((review, idx) => (
               <SwiperSlide key={idx}>
                 {" "}
                 <ReviewCard key={idx} review={review}></ReviewCard>{" "}

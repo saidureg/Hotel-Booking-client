@@ -27,13 +27,13 @@ const Router = createBrowserRouter([
       {
         path: "/rooms",
         element: <Rooms />,
-        loader: () => fetch("http://localhost:5000/rooms"),
+        loader: () => fetch("https://luxelair-hotel-server.vercel.app/rooms"),
       },
       {
         path: "/roomDetails/:id",
         element: <RoomDetails />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`),
+          fetch(`https://luxelair-hotel-server.vercel.app/rooms/${params.id}`),
       },
       {
         path: "/updatedRoom/:id",
@@ -43,7 +43,9 @@ const Router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookings/${params.id}`),
+          fetch(
+            `https://luxelair-hotel-server.vercel.app/bookings/${params.id}`
+          ),
       },
       {
         path: "/reservation/:id",
@@ -53,7 +55,7 @@ const Router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`),
+          fetch(`https://luxelair-hotel-server.vercel.app/rooms/${params.id}`),
       },
       {
         path: "/review/:id",
@@ -63,7 +65,7 @@ const Router = createBrowserRouter([
           </PrivateRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/rooms/${params.id}`),
+          fetch(`https://luxelair-hotel-server.vercel.app/rooms/${params.id}`),
       },
       {
         path: "/booking",

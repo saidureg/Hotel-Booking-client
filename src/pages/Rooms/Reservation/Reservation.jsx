@@ -27,7 +27,7 @@ const Reservation = () => {
   } = room;
   const minDate = moment().format("YYYY-MM-DD");
 
-  const url = `http://localhost:5000/booked?room_id=${_id}`;
+  const url = `https://luxelair-hotel-server.vercel.app/booked?room_id=${_id}`;
 
   useEffect(() => {
     fetch(url)
@@ -73,16 +73,18 @@ const Reservation = () => {
         special_request: text,
         pricePerNight,
       };
-      axios.post("http://localhost:5000/bookings", data).then((res) => {
-        console.log(res.data);
-        if (res.data.insertedId) {
-          swal(
-            "Booking successfully!",
-            "Thank you for booking the room.",
-            "success"
-          );
-        }
-      });
+      axios
+        .post("https://luxelair-hotel-server.vercel.app/bookings", data)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.insertedId) {
+            swal(
+              "Booking successfully!",
+              "Thank you for booking the room.",
+              "success"
+            );
+          }
+        });
 
       setFormName("");
       setPhone("");
