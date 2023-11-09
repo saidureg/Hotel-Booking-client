@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import useReviews from "../../hooks/useReviews";
+import { useEffect, useState } from "react";
 const RoomCard = ({ room }) => {
+  const [roomReviews, setRoomReviews] = useState([]);
   const {
     _id,
     name,
@@ -9,6 +12,19 @@ const RoomCard = ({ room }) => {
     rating,
     reviews: reviewsDef,
   } = room;
+
+  const reviews = useReviews();
+  console.log(reviews);
+  const reviewsForRoom = reviews?.filter((review) => review.room_id === _id);
+  console.log("reviewsForRoom", reviewsForRoom);
+
+  useEffect(() => {
+    const filterReview = reviewsForRoom?.filter(
+      (room) => room?.room_id === _id
+    );
+    setRoomReviews(filterReview);
+  }, [_id, reviewsForRoom]);
+  console.log(roomReviews);
 
   return (
     <Link to={`/roomDetails/${_id}`}>

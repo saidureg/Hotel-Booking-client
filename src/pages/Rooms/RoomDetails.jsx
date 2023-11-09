@@ -2,7 +2,6 @@ import { Link, useLoaderData } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import ReviewForRoom from "../../components/Review/ReviewForRoom";
-import useReviews from "../../hooks/useReviews";
 // import useBookings from "../../hooks/useBookings";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -34,11 +33,6 @@ const RoomDetails = () => {
     size,
     specialOffers,
   } = room;
-
-  const reviews = useReviews();
-  console.log(reviews);
-  const reviewsForRoom = reviews.filter((review) => review.room_id === _id);
-  console.log("reviewsForRoom", reviewsForRoom);
 
   useEffect(() => {
     const findUserBooked = userBooked?.find((id) => id.room_id === _id);
