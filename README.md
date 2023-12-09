@@ -39,3 +39,13 @@ Welcome to our Hotel Booking Web Application! This application allows users to b
 ## Live Website
 
 Visit the live website: Hotel Booking(LuxeLair) (https://luxe-lair-hotel.web.app/)
+
+## Technologies Used
+
+- React.js
+- JavaScript
+- MongoDB
+- Express.js
+- HTML
+- CSS
+
