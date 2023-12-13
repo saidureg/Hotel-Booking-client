@@ -28,9 +28,7 @@ const Login = () => {
         form.reset();
         const user = { email };
         axios
-          .post("https://luxelair-hotel-server.vercel.app/jwt", user, {
-            withCredentials: true,
-          })
+          .post("https://luxelair-hotel-server.vercel.app/jwt", user)
           .then((res) => {
             console.log(res.data);
             if (res.data.success) {
@@ -53,9 +51,7 @@ const Login = () => {
         const email = results.user.email;
         const user = { email };
         axios
-          .post("https://luxelair-hotel-server.vercel.app/jwt", user, {
-            withCredentials: true,
-          })
+          .post("https://luxelair-hotel-server.vercel.app/jwt", user)
           .then((res) => {
             console.log(res.data);
             if (res.data.success) {

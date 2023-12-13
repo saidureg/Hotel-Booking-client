@@ -12,7 +12,7 @@ const MyBookings = () => {
   const url = `https://luxelair-hotel-server.vercel.app/bookings?email=${user?.email}`;
 
   useEffect(() => {
-    fetch(url, { credentials: "include" })
+    fetch(url)
       .then((res) => res.json())
       .then((data) => setBookings(data));
   }, [url]);
