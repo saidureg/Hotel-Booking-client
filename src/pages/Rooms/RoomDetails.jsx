@@ -151,6 +151,15 @@ const RoomDetails = () => {
               </button>
             )}
           </div>
+          <button
+            className={`${
+              bookings
+                ? "btn bg-[#deaa86] text-white hover:text-[#ff881e]"
+                : "btn btn-disabled"
+            }`}
+          >
+            Report
+          </button>
         </div>
       </div>
     </div>
